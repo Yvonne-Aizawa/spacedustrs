@@ -56,6 +56,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ## Generation Instructions
 
+**FIRST** update the [docs fork with the spacedust patches](https://github.com/spacetraders-rs/api-docs-spacedust-patch). You can just 'Sync Fork' from the github web UI unless there are merge conflicts (there haven't been so far)
+
 Clone the project, including --recurse-submodules:
 
 ```bash
@@ -72,15 +74,26 @@ Clean the output directory:
 
 ```bash
 sudo rm -rf client-dist
+```
+
+Remake the directory:
+
+```bash
 mkdir client-dist
+```
+
+Update your local image of openapitools/openapi-generator-cli:latest-release
+
+```bash
+docker pull openapitools/openapi-generator-cli:latest-release
 ```
 
 Run the following command, which uses the openapi-generator-cli docker image to generate the client:
 
 ```bash
 docker run --rm \
-  -v ${PWD}:/local openapitools/openapi-generator-cli generate \
-  -i /local/spacetraders-api-docs/reference/SpaceTraders.json \
+  -v ${PWD}:/local openapitools/openapi-generator-cli:latest-release generate \
+  -i /local/spacetraders-api-docs-spacedust-patch/reference/SpaceTraders.json \
   -g rust \
   -o /local/client-dist \
   --additional-properties=packageName=spacedust,supportAsync=true,supportMiddleware=true
