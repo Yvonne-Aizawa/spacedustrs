@@ -7,3 +7,4 @@ mod default_api;
 mod factions_api;
 mod contracts_api;
 mod fleet_api;
+mod systems_api;
