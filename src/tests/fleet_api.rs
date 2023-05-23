@@ -32,7 +32,6 @@ mod tests {
         configuration.bearer_access_token = Some(GLOBAL_ACC.to_string());
         let ships = get_my_ships(&configuration, Some(1), Some(20)).await;
         let cooldown = get_ship_cooldown(&configuration,&ships.unwrap().data[0].symbol).await;
-        dbg!(&cooldown);
         // !TODO this will error since there is no cooldown since that the ship has not extracted anything
         assert!(cooldown.is_err());
     }
